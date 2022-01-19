@@ -1,4 +1,4 @@
-import sys, pygame, math, json
+import sys, pygame, math, json, random
 pygame.init()
 quests = json.load(open('questions.json'))
 
@@ -100,21 +100,28 @@ def placebtns(txts, size, origin, color):
         )
         btns.append(Button(a, size, finpos))
         btnpos += size  
-
+def checkAnswer(question):
+    print("bla")
+def shuffle(e):
+    return random.randint(1,100)
 
 DISPLAY.set_caption('learnin\' ' + TITLE + '!')
 
 # show title
-fadeinText(TITLE, WHITE, 80, CENTER)
+#fadeinText(TITLE, WHITE, 80, CENTER)
 pygame.time.wait(500)
-fadeoutText(TITLE, WHITE, 80, CENTER)
+#fadeoutText(TITLE, WHITE, 80, CENTER)
 screen.fill(BACK)
 DISPLAY.flip()
 
 #show question and possible answers
 for q in quests[TITLE]:
     fadeinText(q, WHITE, 20, QUESTION)
-    placebtns(quests[TITLE][q], 60, BUTTON1, WHITE)
+    allanswers = quests[TITLE][q]["n"]
+    allanswers.extend(quests[TITLE][q]["y"])
+    allanswers.sort(key=shuffle)
+    placebtns(allanswers, 60, BUTTON1, WHITE)
+    #checkAnswer(q)
         
 
 while True:

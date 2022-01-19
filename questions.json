@@ -1,14 +1,11 @@
 {"Bash" : {
-    "Wie heißt eine betäubte Taube" : [
-        "Baum", 
-        "Haus",
-        "Täube"
-    ],
-    "Wie heißt eine nicht betäubte Taube" : [
-        "Freibe", 
-        "Wache",
-        "Wachtel",
-        "Gens"
-    ]
+    "Wie heißt eine betäubte Taube" : {
+        "n": ["Baum", "Haus"],
+        "y": ["Täube"]
+    },
+    "Wie heißt eine nicht betäubte Taube" : {
+        "n": ["Freibe","Wache","Wachtel"],
+        "y": ["Taube"]
+    }
 }}
 
