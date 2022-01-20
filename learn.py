@@ -63,13 +63,35 @@ def fadeinText(text, colour, size, location):
         pygame.time.wait(10)
     return finfont
 
+def checkAnswer(question):
+    print("bla")
+def placebtns(txts, size, origin, color, count):
+    btnpos = origin[1]
+    for a in txts: 
+        finpos = (
+            origin[0],
+            btnpos
+        )
+        btns.append(Button(a, size, finpos, count))
+        btnpos += size  
+
+def displayNextQuestion(index):
+    key=list(quests[TITLE].keys())[index]
+    screen.fill(BACK)
+    fadeinText(key, WHITE, 20, QUESTION)
+    allanswers = quests[TITLE][key]["n"]
+    allanswers.extend(quests[TITLE][key]["y"])
+    allanswers.sort(key=shuffle)
+    placebtns(allanswers, 60, BUTTON1, WHITE, index+1)
+
 class Button():
-    def __init__(self, text, size, pos):
+    def __init__(self, text, size, pos, count):
         self.txt = text
         self.size = size
         self.fade = fadeinText(text, WHITE, 60-self.size, pos)
         self.pos = pos
         self.font = fonts[self.size]
+        self.count = count
 
     def mouseOver(self):
         mouse = pygame.mouse.get_pos()
@@ -77,7 +99,8 @@ class Button():
 
     def isClicked(self):
         if self.mouseOver():
-                print("a1")
+                checkanswer(self.txt)
+                displayNextQuestion(self.count)
     def isHovered(self):
         nonhvr = self.fade
         centerpos = (
@@ -91,17 +114,8 @@ class Button():
         else:
             screen.blit(nonhvr, centerpos)
 
-def placebtns(txts, size, origin, color):
-    btnpos = origin[1]
-    for a in txts: 
-        finpos = (
-            origin[0],
-            btnpos
-        )
-        btns.append(Button(a, size, finpos))
-        btnpos += size  
-def checkAnswer(question):
-    print("bla")
+
+
 def shuffle(e):
     return random.randint(1,100)
 
@@ -115,13 +129,7 @@ screen.fill(BACK)
 DISPLAY.flip()
 
 #show question and possible answers
-for q in quests[TITLE]:
-    fadeinText(q, WHITE, 20, QUESTION)
-    allanswers = quests[TITLE][q]["n"]
-    allanswers.extend(quests[TITLE][q]["y"])
-    allanswers.sort(key=shuffle)
-    placebtns(allanswers, 60, BUTTON1, WHITE)
-    #checkAnswer(q)
+displayNextQuestion(0)
         
 
 while True:
@@ -133,7 +141,7 @@ while True:
         if event.type == pygame.MOUSEBUTTONDOWN:
             for b in btns:
                 b.isClicked()
-
+    
 
     #hover
     for b in btns:
