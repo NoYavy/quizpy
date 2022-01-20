@@ -63,6 +63,10 @@ def fadeinText(text, colour, size, location):
         pygame.time.wait(10)
     return finfont
 
+def finish():
+    print("nice")
+    quit()
+
 def checkAnswer(question):
     print("bla")
 def placebtns(txts, size, origin, color, count):
@@ -76,12 +80,19 @@ def placebtns(txts, size, origin, color, count):
         btnpos += size  
 
 def displayNextQuestion(index):
-    key=list(quests[TITLE].keys())[index]
+    keys = list(quests[TITLE].keys())
+    if(index == len(keys)):
+        finish()
+        return
+    key=keys[index]
     screen.fill(BACK)
+    btns = []
+    allanswers = []
     fadeinText(key, WHITE, 20, QUESTION)
     allanswers = quests[TITLE][key]["n"]
     allanswers.extend(quests[TITLE][key]["y"])
-    allanswers.sort(key=shuffle)
+    #allanswers.sort(key=shuffle)
+    random.shuffle(allanswers)    
     placebtns(allanswers, 60, BUTTON1, WHITE, index+1)
 
 class Button():
@@ -99,7 +110,7 @@ class Button():
 
     def isClicked(self):
         if self.mouseOver():
-                checkanswer(self.txt)
+                checkAnswer(self.txt)
                 displayNextQuestion(self.count)
     def isHovered(self):
         nonhvr = self.fade

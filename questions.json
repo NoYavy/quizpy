@@ -6,6 +6,10 @@
     "Wie heißt eine nicht betäubte Taube" : {
         "n": ["Freibe","Wache","Wachtel"],
         "y": ["Taube"]
+    },
+    "Wie schmecken Wolken" : {
+        "n": ["Fleischbällchen","Apfel","Wachtel"],
+        "y": ["wolkig"]
     }
 }}
 
